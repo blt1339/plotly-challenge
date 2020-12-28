@@ -109,6 +109,28 @@ function buildCharts(id) {
         // Create the bar chart
         Plotly.newPlot("bar", traceData1, layout1);
 
+        // Create the trace for the bar chart 
+        let trace2 = {
+            values: top10ChartValues,
+            labels: top10ChartIds,
+            hovertext: top10ChartLabels,
+            name: "Top10BacteriaPie",
+            type: "pie"
+        };
+
+        let traceData2 = [trace2];
+
+        // Setup the layout for
+        let layout2 = {
+            title: "Top 10 Bacteria for Test Subject",
+            labels:top10ChartIds
+        };
+
+        // Create the bar chart
+        Plotly.newPlot("pie", traceData2, layout2);
+
+
+
     });
 }
 
