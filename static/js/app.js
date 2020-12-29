@@ -66,20 +66,30 @@ function buildCharts(id) {
     // Use D3 fetch to read the JSON file
     d3.json("data/samples.json").then((data) => {
         let samples = data.samples;
-        // console.log(samples);
+        console.log(samples);
 
         let sampleSamples = samples.filter(samplesInfo => samplesInfo.id.toString() === idNo)[0];
+        // console.log(sampleSamples);
 
-        let top10Values = sampleSamples.sample_values.splice(0,10);
-        let top10Ids = sampleSamples.otu_ids.splice(0,10);
-        let top10Labels = sampleSamples.otu_labels.splice(0,10);
+
+
+
+
+
+        // let top10Values = sampleSamples.sample_values.splice(0,10);
+        // let top10Ids = sampleSamples.otu_ids.splice(0,10);
+        // let top10Labels = sampleSamples.otu_labels.splice(0,10);
+
+        let top10Values = sampleSamples.sample_values.slice(0,10);
+        let top10Ids = sampleSamples.otu_ids.slice(0,10);
+        let top10Labels = sampleSamples.otu_labels.slice(0,10);
 
         let top10ChartValues = top10Values.reverse();
-        console.log(top10ChartValues);
+        // console.log(top10ChartValues);
         let top10IdNums = top10Ids.reverse();
-        console.log(top10IdNums);
+        // console.log(top10IdNums);
         let top10ChartLabels = top10Labels.reverse();
-        console.log(top10ChartLabels);
+        // console.log(top10ChartLabels);
 
         top10ChartIds = [];
         for (let i = 0; i < top10IdNums.length; i++) {
@@ -87,54 +97,86 @@ function buildCharts(id) {
         }
         console.log(top10ChartIds)
 
- 
-        // Create the trace for the bar chart 
-        let trace1 = {
-            x: top10ChartValues,
-            y: top10ChartIds,
-            hovertext: top10ChartLabels,
-            orientation: "h",
-            name: "Top10BacteriaBar",
-            type: "bar"
-        };
+        buildBarChart(top10ChartValues,top10ChartIds,top10ChartLabels);
 
-        let traceData1 = [trace1];
-  
-        // Setup the layout for
-        let layout1 = {
-            title: "Top 10 Bacteria for Test Subject",
-            labels:top10ChartIds
-        };
-  
-        // Create the bar chart
-        Plotly.newPlot("bar", traceData1, layout1);
+        buildPieChart(top10ChartValues,top10ChartIds,top10ChartLabels);
 
-        // Create the trace for the bar chart 
-        let trace2 = {
-            values: top10ChartValues,
-            labels: top10ChartIds,
-            hovertext: top10ChartLabels,
-            name: "Top10BacteriaPie",
-            type: "pie"
-        };
-
-        let traceData2 = [trace2];
-
-        // Setup the layout for
-        let layout2 = {
-            title: "Top 10 Bacteria for Test Subject",
-            labels:top10ChartIds
-        };
-
-        // Create the bar chart
-        Plotly.newPlot("pie", traceData2, layout2);
-
+        buildBubbleChart(sampleSamples);
 
 
     });
 }
 
+function buildBubbleChart(chartData) {
+    // Create the trace for the Bubble chart 
+    let bubbleTrace = {
+        x: chartData.otu_ids,
+        y: chartData.sample_values,
+        marker: {
+            size: chartData.sample_values,
+            color: chartData.otu_ids,
+            colorscale: "Rainbow" 
+        },
+        text: chartData.otu_labels,
+        mode: "markers"
+    };
 
+    let bubbleTraceData = [bubbleTrace];
+  
+    // Setup the layout for
+    let bubbleLayout = {
+        title: "Top 10 Bacteria for Test Subject",
+        height: 600,
+        width: 1300
+    };
+  
+    // Create the Bubble chart
+    Plotly.newPlot("bubble", bubbleTraceData, bubbleLayout);
+}
 
+function buildBarChart(sampleValues,sampleIds,sampleLabels) {
+    // Create the trace for the bar chart 
+    let barTrace = {
+        x: sampleValues,
+        y: sampleIds,
+        hovertext: sampleLabels,
+        orientation: "h",
+        name: "Top10BacteriaBar",
+        type: "bar"
+    };
+
+    let barTraceData = [barTrace];
+  
+    // Setup the layout
+    let barLayout = {
+        title: "Top 10 Bacteria for Test Subject",
+        labels:top10ChartIds
+    };
+  
+    // Create the bar chart
+    Plotly.newPlot("bar", barTraceData, barLayout);
+}
+
+function buildPieChart(sampleValues,sampleIds,sampleLabels) {
+    // Create the trace for the pie chart 
+    let pieTrace = {
+        values: sampleValues,
+        labels: sampleIds,
+        hovertext: sampleLabels,
+        name: "Top10BacteriaPie",
+        type: "pie"
+    };
+
+    let pieTraceData = [pieTrace];
+
+    // Setup the layout for
+    let pieLayout = {
+        title: "Top 10 Bacteria for Test Subject",
+        labels:top10ChartIds
+    };
+
+    // Create the bar chart
+    Plotly.newPlot("pie", pieTraceData, pieLayout)
+}
 
 init();
