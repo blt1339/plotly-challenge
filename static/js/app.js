@@ -137,7 +137,7 @@ function buildBubbleChart(chartData) {
         marker: {
             size: chartData.sample_values,
             color: chartData.otu_ids,
-            colorscale: "Rainbow" 
+            colorscale: "Earth" 
         },
         text: chartData.otu_labels,
         mode: "markers"
@@ -147,9 +147,16 @@ function buildBubbleChart(chartData) {
   
     // Setup the layout for
     let bubbleLayout = {
-        title: "Top 10 Bacteria for Test Subject",
-        height: 600,
-        width: 1300
+        hovermode:'closest',
+        xaxis: {
+            title: 'OTU ID',
+            titlefont: {
+              size: 18,
+              color: 'black'
+            }
+        },
+        height: 500,
+        width: 1100
     };
   
     // Create the Bubble chart
