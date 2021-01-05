@@ -1,4 +1,6 @@
 function buildGuage(chartData) {
+
+  // Setup the gauge data
   let gaugeTraceData = [
   {
     type: "indicator",
@@ -32,16 +34,16 @@ function buildGuage(chartData) {
     }
   }
   ];
-        
+  // Setup the Gauge layout
   var gaugeLayout = {
-
     height: 700,
     width: 1000,
     margin: { t: 25, r: 25, l: 25, b: 25 },
     paper_bgcolor: "white",
     font: { color: "black", family: "Arial" }
   };
-        
+  
+  // Build the washing frequency gauge
   Plotly.newPlot('gauge', gaugeTraceData, gaugeLayout);
 }
 
