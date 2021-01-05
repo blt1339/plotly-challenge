@@ -5,9 +5,11 @@ function buildGuage(chartData) {
     mode: "gauge+number",
     value: chartData.wfreq,
     title: { text: "<b>Belly Button Washing Frequency</b> <br> Scrubs Per Week", font: { size: 30 } },
-      gauge: {
-      axis: { range: [0, 9], tickwidth: 1, tickcolor: "darkblue" },
-      bar: { color: "darkblue" },
+    gauge: {
+      axis: { 
+        range: [0, 9],
+       },
+      bar: { color: "darkblue", thickness: .2},
       bgcolor: "white",
       borderwidth: 2,
       bordercolor: "gray",
@@ -32,8 +34,9 @@ function buildGuage(chartData) {
   ];
         
   var gaugeLayout = {
+
     height: 700,
-    width: 1100,
+    width: 1000,
     margin: { t: 25, r: 25, l: 25, b: 25 },
     paper_bgcolor: "white",
     font: { color: "black", family: "Arial" }
