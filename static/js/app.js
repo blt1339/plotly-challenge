@@ -92,6 +92,7 @@ function buildCharts(id) {
     });
 }
 
+// Build the top 10 Bacteria Bar chart
 function buildBarChart(sampleValues,sampleIds,sampleLabels) {
     // Create the trace for the bar chart 
     let barTrace = {
@@ -103,6 +104,7 @@ function buildBarChart(sampleValues,sampleIds,sampleLabels) {
         type: "bar"
     };
 
+    // Define the data
     let barTraceData = [barTrace];
   
     // Setup the layout
@@ -115,7 +117,7 @@ function buildBarChart(sampleValues,sampleIds,sampleLabels) {
     Plotly.newPlot("bar", barTraceData, barLayout);
 }
 
-
+// Build the sample bubble chart
 function buildBubbleChart(chartData) {
     // Create the trace for the Bubble chart 
     let bubbleTrace = {
@@ -130,6 +132,7 @@ function buildBubbleChart(chartData) {
         mode: "markers"
     };
 
+    // Define the data
     let bubbleTraceData = [bubbleTrace];
   
     // Setup the layout for
@@ -150,7 +153,7 @@ function buildBubbleChart(chartData) {
     Plotly.newPlot("bubble", bubbleTraceData, bubbleLayout);
 }
 
-
+// Build the top 10 Bacteria Pie chart
 function buildPieChart(sampleValues,sampleIds,sampleLabels) {
     // Create the trace for the pie chart 
     let pieTrace = {
@@ -161,16 +164,18 @@ function buildPieChart(sampleValues,sampleIds,sampleLabels) {
         type: "pie"
     };
 
+    // Define the data
     let pieTraceData = [pieTrace];
 
-    // Setup the layout for
+    // Setup the layout for the pie chart
     let pieLayout = {
         title: "Top 10 Bacteria for Test Subject",
         labels:top10ChartIds
     };
 
-    // Create the bar chart
+    // Create the pie chart
     Plotly.newPlot("pie", pieTraceData, pieLayout)
 }
 
+// Setup intial output
 init();
